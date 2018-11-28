@@ -15,10 +15,12 @@ class TestViews(TestCase):
     def test_get_products_json(self):
         response = self.client.get("/api/v1/products/1")
         products = response.json
-        self.assertIsInstance(products, list)
+        self.assertIsInstance(products, dict)
 
     def test_add_product(self):
-        response = self.client.post("/api/v1/products", data=dict(name="Workelo"))
+        response = self.client.post("/api/v1/products",
+                                    data=json.dumps(dict(name="Workelo")),
+                                    content_type='application/json')
         product = response.json
         self.assertIsInstance(product, dict)
         self.assertEqual(product["name"], "Workelo")

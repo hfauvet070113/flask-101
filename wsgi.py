@@ -48,13 +48,10 @@ def add_product():
 def update_product(id):
     product_id = int(id)
     content = request.get_json("name")
-    product = {}
-    product["id"] = product_id
-    product["name"] = content["name"]
     a = 0
     for item in PRODUCTS:
             if item['id']  == product_id:
-                del PRODUCTS[a]
+                b = a
+                PRODUCTS[a]["name"] = content["name"]
             a += 1
-    PRODUCTS.append(product)
-    return jsonify(product), 204
+    return jsonify(PRODUCTS[b]), 204
